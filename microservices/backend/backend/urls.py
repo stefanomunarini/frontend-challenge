@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.urls import include
 
-from backend import settings
+from . import settings
 from countries import urls as countries_urls
 
 urlpatterns = [

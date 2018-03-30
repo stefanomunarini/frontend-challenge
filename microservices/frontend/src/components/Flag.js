@@ -6,7 +6,7 @@ class Flag extends Component {
 		return (
 			<img className="Flag" 
 				alt={this.props.name}
-				src={'http://127.0.0.1:8001/'+this.props.image}
+				src={'http://localhost:8000/'+this.props.image}
 			/>
 		);
 	}

@@ -18,7 +18,7 @@ class CountryList extends Component {
   }
 
   fetchCountries() {
-    fetch('http://127.0.0.1:8001/countries/list')
+    fetch('http://localhost:8000/countries/list')
 		  .then((response) => {
 		    return response.json()
 		  })

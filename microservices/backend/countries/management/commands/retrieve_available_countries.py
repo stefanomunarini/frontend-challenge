@@ -2,9 +2,9 @@ import json
 import tarfile
 import urllib
 
-from django.conf import settings
 from django.core.management import BaseCommand
 
+from backend import settings
 from countries.models import Country
 
 
