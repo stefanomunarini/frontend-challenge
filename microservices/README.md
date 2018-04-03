@@ -1,3 +1,5 @@
+## Microservices
+
 The project is structured to have a neat separation between the frontend and its backend.
 
 In this folder a docker-compose file can be found, where the configuration of each microservice is defined. In particular, while the project structure only counts 2 microservice folders, the docker-compose file defines 3 microservices: a frontend, a backend and a database.
@@ -21,3 +23,17 @@ Similarly to the backend container, a frontend configuration is defined. The fro
 #### Database
 
 The database configuration, then, defined the same parameters as above. The only additions are the environment variables, which are used by the psql command to identify and automatically connect to the right database instance.
+
+### Instructions
+
+Starting the containers and being able to use the application is a straightforward operation using a docker-compose file.
+
+`docker-compose up`
+
+Wait for a minute that all the containers are spinned up and running properly, then navigate to `http://localhost:3000` from you favourite web browser and you are all set up!
+
+##### Note
+
+Database migrations are required to be created manually before spinning up the containers. If a database modification is made, remember to create the new migration(s) file(s) with the Django command `python manage.py makemigrations` (remember to execute this command from the /backend folder of this project). Only then you can spin up the containers with the above mentioned command.
+
+P.S.: if there is already a running container, remember to shut it down (the `docker-compose down` command can be used), together with the deletion of the container image (`docker rmi microservices_backend_ms`)
