@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import backend_host from '../static/strings';
 
 class Flag extends Component {
 
@@ -6,7 +7,7 @@ class Flag extends Component {
 		return (
 			<img className="Flag" 
 				alt={this.props.name}
-				src={'http://localhost:8000/'+this.props.image}
+				src={backend_host + '/' + this.props.image}
 			/>
 		);
 	}

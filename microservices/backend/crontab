@@ -1,0 +1,2 @@
+# every hour fetch available countries from server
+0 * * * * root ./manage.py retrieve_available_countries > /var/log/cron.log 2>&1

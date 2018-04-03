@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import CountryListItem from './CountryListItem';
 import '../static/css/CountryList.css';
+import backend_host from '../static/strings';
 
 class CountryList extends Component {
+
+	errorMessage = "Ops! Something went wrong!"
 
 	constructor(props) {
     super(props);
 		this.state = {
-			countries: []
+			countries: [],
+			errorMessage: ""
 		}
 
 		this.fetchCountries = this.fetchCountries.bind(this);
@@ -18,7 +22,7 @@ class CountryList extends Component {
   }
 
   fetchCountries() {
-    fetch('http://localhost:8000/countries/list')
+    fetch(backend_host + '/countries/list')
 		  .then((response) => {
 		    return response.json()
 		  })
@@ -29,15 +33,13 @@ class CountryList extends Component {
 		  })
 		  .catch((exception) => {
 		    console.log('parsing failed', exception)
+		    this.setState({errorMessage: this.errorMessage})
 		  })
   }
 
   render() {
-
-  	console.log(this.state.countries)
-
-  	if (this.state.countries.length > 0){
-	  	return (
+  	return (
+  		<div>
 	  		<ul className="CountryList">
 	  			{this.state.countries.map((country) =>
 		    		<CountryListItem key={country.name}
@@ -46,15 +48,10 @@ class CountryList extends Component {
 		    				 music={country.music}
 		    				 description={country.description}/>
 		  		)}
-				</ul>
-	  	);
-	  } else {
-	  	return (
-	  		<div className="Error">
-	  			Error contacting the server. Please, try again in another moment!
-	  		</div>
-	  	)
-	  }
+	  		</ul>
+	  		<div>{this.state.errorMessage}</div>
+  		</div>
+  	);
   }
 }
 

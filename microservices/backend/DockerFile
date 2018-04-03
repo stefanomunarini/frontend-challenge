@@ -3,15 +3,15 @@ FROM python:3.5.0
 RUN mkdir /src/
 WORKDIR /src/backend/
 
-ADD requirements.txt /src/backend/
+ADD requirements.txt .
 
 RUN pip install -r requirements.txt
 
 RUN apt-get update && apt-get -y install cron
+ADD crontab /etc/cron.hourly/app-cron
 RUN touch /var/log/cron.log
+RUN chmod 0644 /etc/cron.hourly/app-cron
 
 ADD . /src/
 
 EXPOSE 8000
-
-ENTRYPOINT python manage.py runserver 0.0.0.0:8000

@@ -22,8 +22,8 @@ class Command(BaseCommand):
                 if created:
                     input_stream = urllib.request.urlopen(
                         'http://elsa-frontend-challenge.s3-website-eu-west-1.amazonaws.com/{}'.format(obj.name))
-                    thetarfile = tarfile.open(fileobj=input_stream, mode="r|gz")
-                    thetarfile.extractall(path=settings.MEDIA_ROOT + obj.name)
+                    tar_archive = tarfile.open(fileobj=input_stream, mode="r|gz")
+                    tar_archive.extractall(path=settings.MEDIA_ROOT + obj.name)
 
                     with open(settings.MEDIA_ROOT + obj.name + '/info.json', 'r') as json_file:
                         json_data = json.load(json_file)
@@ -32,3 +32,7 @@ class Command(BaseCommand):
                         obj.image = json_data['image']
                         obj.music = json_data['music']
                         obj.save()
+        else:
+            raise Exception(
+                "Error while retrieving the list of available countries from the server. Error message: \n\n {}".format(
+                    response.text))

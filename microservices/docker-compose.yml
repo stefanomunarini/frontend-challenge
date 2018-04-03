@@ -3,11 +3,16 @@ version: '3'
 services:
   backend_ms:
     build: ./backend
-    command: cron start
+    command: bash -c "python manage.py migrate
+      && python manage.py retrieve_available_countries
+      && service cron start
+      && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend/:/src/backend
     ports:
       - "8000:8000"
+    depends_on: ["db"]
+    restart: unless-stopped
   frontend_ms:
     build: ./frontend
     ports:
@@ -19,6 +24,10 @@ services:
     depends_on: ["backend_ms"]
   db:
     build: ./backend/data/
+    environment:
+      POSTGRES_DB: "docker"
+      POSTGRES_USER: "docker"
+      POSTGRES_PASSWORD: "docker"
     restart: always
     ports:
     - "8010:5432"
